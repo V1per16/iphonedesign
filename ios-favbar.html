@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IOS Favourites Bar</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                background: #121212;
+                background: linear-gradient(135deg, rgba(18, 18, 18, 1) 0%, rgba(31, 31, 31, 1) 50%, rgba(43, 43, 43, 1) 100%);display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+
+            .phone-wrapper {
+                display: flex;
+                align-items: stretch;
+            }
+
+            .phone-casing {
+                position: relative;
+                border-style: solid;
+                border-color: rgb(126, 126, 126);
+                border-radius: 40px;
+                width: 268px;
+                height: 582px;
+            }
+
+            /* -------------------------------------- */
+            .left-btns-wrapper {
+                display: flex;
+                padding-top: 35%;
+                flex-direction: column;
+                align-items: start;
+                gap: 10px;
+            }
+
+            .action-btn {
+                border-radius: 3px 0 0 3px;
+                width: 2px;
+                height: 20px;
+                background-color: rgb(87, 87, 87);
+                margin-bottom: 1rem;
+            }
+
+            .volume-up-btn, .volume-down-btn {
+                border-radius: 3px 0px 0px 3px;
+                width: 2px;
+                height: 50px;
+                background-color: rgb(87, 87, 87);
+            }
+
+            .power-btn {
+                border-radius: 0px 3px 3px 0px;
+                margin-top: 55%;
+                background-color: rgb(87, 87, 87);
+                width: 2px;
+                height: 70px;
+            }
+
+            /* -------------------------------------- */
+
+            .phone-screen-wrapper {
+                --border-w: 7px;
+                position: absolute;
+                width: calc(268px - var(--border-w) * 2);
+                height: calc(582px - var(--border-w) * 2);
+                padding: var(--border-w);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1;
+                background-color: #000;
+                border-radius: 37px;
+            }
+
+            .phone-screen {
+                position: relative;
+                background: url("https://media.idownloadblog.com/wp-content/uploads/2017/11/iOS-stock-6-for-iPhone-X.png");
+                background-size: cover;
+                width: 100%;
+                height: 100%;
+                border-radius: 30px;
+            }
+
+            .overhead-panel {
+                position: absolute;
+                top: 16px;
+                left: 50%;
+                z-index: 2;
+                transform: translateX(-50%);
+                width: 30%;
+                height: 24px;
+                background-color: #000;
+                border-radius: 15px;
+            }
+
+            /* ------------------------------------------ */
+            /* PHONE SCREEN */
+            /* ------------------------------------------ */
+
+            /* ================ TOP BAR ================ */
+
+            .top-bar {
+                position: absolute;
+                width: 88%;
+                height: 24px;
+                left: 50%;
+                top: 9px;
+                transform: translateX(-50%);
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .top-bar i {
+                line-height: 1;
+                font-size: 12px;
+                color: rgb(210, 210, 210);
+            }
+
+            .right-sect {
+                display: flex;
+                height: 24px;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .left-sect {
+                margin-left: 0.5rem;
+                width: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .time-text {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 14px;
+                color: rgb(210, 210, 210);
+            }
+
+            /* ================ FAVOURITE APPS BAR ================ */
+            .fav-apps-grid {
+                position: absolute;
+                left: 50%;
+                bottom: 12px;
+                transform: translateX(-50%);
+                width: 90%;
+                height: 70px;
+                background-color: transparent;
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+                box-shadow: inset 0px 0px 40px 1px #ffffff98;
+                border-radius: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            img {
+                width: 40px;
+            }
+
+            /* ------------------------------------------ */
+
+            .main-apps-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+                gap: 1rem;
+                width: 100%;
+                height: 70%;
+                margin: 20% 0 0 0;
+                box-sizing: border-box;
+            }
+
+            /*
+            .main-apps-grid div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            */
+
+            .grid-widget {
+                grid-column: span 2;
+                grid-row: span 2;
+
+                background-color: rgb(132, 198, 255);
+                border-radius: 20px;
+            }
+
+            /* ------------------------------------------ */
+
+            /*
+
+            liquid glass:
+                phone: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/phone.png" alt="phone"/>
+                whatsapp: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/whatsapp.png" alt="whatsapp"/>
+                snapchat: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/snapchat.png" alt="snapchat"/>
+                telegram: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/telegram-app.png" alt="telegram-app"/>
+                instagram: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/instagram-new.png" alt="instagram-new"/>
+                youtube: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/youtube-play.png" alt="youtube-play"/>
+                tiktok: <img width="48" height="48" src="https://img.icons8.com/liquid-glass/48/tiktok.png" alt="tiktok"/>
+
+
+
+            */
+            </style>
+    </head>
+
+    <body>
+        <div class="phone-wrapper">
+            <div class="left-btns-wrapper">
+                <div class="action-btn"></div>
+
+                <div class="volume-up-btn"></div>
+                <div class="volume-down-btn"></div>
+            </div>
+
+            <div class="phone-casing">
+                <div class="overhead-panel"></div>
+
+                <div class="phone-screen-wrapper">
+                    <div class="phone-screen">
+                        <div class="top-bar">
+                            <div class="left-sect">
+                                <div class="time-text">9:42</div>
+                            </div>
+
+                            <div class="right-sect">
+                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-plane"></i>
+                                <i class="fa-solid fa-battery-three-quarters"></i>
+                            </div>
+                        </div>
+
+                        <div class="main-apps-grid">
+                            <div class="grid-widget"></div>
+                            <div class="grid-widget"></div>
+
+                            <div class="grid-app"><img src="images/messages.png" alt=""></div>
+                            <div class="grid-app"><img src="images/camera.png" alt=""></div>
+                            <div class="grid-app"><img src="images/contact.png" alt=""></div>
+                            <div class="grid-app"><img src="images/app-store.png" alt=""></div>
+                            
+                            <div class="grid-app"><img src="images/calendar.png" alt=""></div>
+                            <div class="grid-app"><img src="images/contact.png" alt=""></div>
+                            <div class="grid-app"><img src="images/messages.png" alt=""></div>
+                            <div class="grid-app"><img src="images/weather.png" alt=""></div>
+                            
+                            <div class="grid-app"><img src="images/app-store.png" alt=""></div>
+                            <div class="grid-app"><img src="images/apple-tv.png" alt=""></div>
+                            <div class="grid-app"><img src="images/notes.png" alt=""></div>
+                            <div class="grid-app"><img src="images/camera.png" alt=""></div>
+                            
+                            <div class="grid-app"><img src="images/weather.png" alt=""></div>
+                            <div class="grid-app"><img src="images/camera.png" alt=""></div>
+                            <div class="grid-app"><img src="images/app-store.png" alt=""></div>
+                            <div class="grid-app"><img src="images/apple-tv.png" alt=""></div>
+                        </div>
+
+                        <div class="fav-apps-grid">
+                            <img src="images/app-store.png" alt="">
+                            <img src="images/camera.png" alt="">
+                            <img src="images/contact.png" alt="">
+                            <img src="images/messages.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="power-btn"></div>
+        </div>
+    </body>
+</html>
